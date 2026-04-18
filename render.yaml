@@ -4,7 +4,8 @@
 databases:
   - name: dshub-db
     databaseName: dshub_production
-    plan: free  # бесплатно первые 90 дней, потом $7/мес. Upgrade: standard
+    plan: free
+    region: frankfurt  # бесплатно первые 90 дней, потом $7/мес. Upgrade: standard
 
 services:
   - type: web
