@@ -10,7 +10,7 @@ services:
   - type: web
     name: dshub
     runtime: ruby
-    plan: starter  # free тоже работает, но засыпает после 15 мин простоя + нет диска для загрузок
+    plan: free  # засыпает через 15 мин простоя; нет persistent disk. Для полноценной работы: starter ($7/мес) + раскомментировать disk ниже
     region: frankfurt  # ближе к RU; варианты: oregon, ohio, frankfurt, singapore
     branch: main
     buildCommand: "./bin/render-build.sh"
@@ -30,10 +30,10 @@ services:
       - key: RAILS_SERVE_STATIC_FILES
         value: "true"
       - key: WEB_CONCURRENCY
-        value: "2"
-      - key: RAILS_STORAGE_PATH
-        value: "/var/data/storage"
-    disk:
-      name: dshub-storage
-      mountPath: /var/data/storage
-      sizeGB: 1
+        value: "1"
+    # Раскомментировать только при plan: starter или выше — free plan не поддерживает диски.
+    # disk:
+    #   name: dshub-storage
+    #   mountPath: /var/data/storage
+    #   sizeGB: 1
+    # И добавить envVar: RAILS_STORAGE_PATH = /var/data/storage
