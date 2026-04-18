@@ -1,0 +1,79 @@
+<%# ==================== HERO ==================== %>
+<% content_for :hero do %>
+  <section class="relative w-[1440px] mx-auto h-[600px] overflow-hidden bg-white">
+    <%# Background: repeating condensed text %>
+    <div class="absolute inset-0 pointer-events-none select-none flex items-center justify-center overflow-hidden">
+      <div class="text-center font-[450] tracking-[-12px] text-neutral-130 opacity-[0.08] leading-[0.72] text-[308px] whitespace-nowrap uppercase"
+           style="font-family: var(--font-condensed);">
+        Словарь Словарь<br>Термины Термины
+      </div>
+    </div>
+
+    <%# Radial gradient fade to white %>
+    <div class="absolute inset-0 pointer-events-none"
+         style="background: radial-gradient(50% 50% at 50% 50%, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 98.2%);"></div>
+
+    <%# 3D hero image (green check) %>
+    <div class="absolute left-1/2 top-[180px] -translate-x-1/2 w-[234px] h-[203px] pointer-events-none z-10">
+      <img src="/images/hero-check.png" alt="" class="w-full h-full object-contain">
+    </div>
+  </section>
+<% end %>
+
+<%# ==================== CATEGORIES FILTER + TERMS GRID ==================== %>
+<section class="w-[1440px] mx-auto px-[32px] pt-[32px] pb-[80px]">
+  <div class="flex gap-[32px]">
+    <%# Left: Category filter %>
+    <aside class="w-[240px] shrink-0">
+      <h3 class="font-display font-medium text-[16px] tracking-[-0.04em] text-neutral-160 mb-4">
+        Категория
+      </h3>
+      <div class="flex flex-col gap-3">
+        <%= link_to glossary_path,
+            data: { turbo_action: "replace" },
+            class: "flex items-center gap-2 text-[16px] font-display #{@selected_category.blank? ? 'text-neutral-160 font-medium' : 'text-neutral-100'} hover:text-neutral-160 transition" do %>
+          <span class="w-[18px] h-[18px] rounded-[4px] border <%= @selected_category.blank? ? 'bg-neutral-160 border-neutral-160' : 'border-neutral-30' %> flex items-center justify-center">
+            <% if @selected_category.blank? %>
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5L4 7L8 3" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <% end %>
+          </span>
+          Все
+        <% end %>
+        <% @categories.each do |category| %>
+          <%= link_to glossary_path(category: category),
+              data: { turbo_action: "replace" },
+              class: "flex items-center gap-2 text-[16px] font-display #{@selected_category == category ? 'text-neutral-160 font-medium' : 'text-neutral-100'} hover:text-neutral-160 transition" do %>
+            <span class="w-[18px] h-[18px] rounded-[4px] border <%= @selected_category == category ? 'bg-neutral-160 border-neutral-160' : 'border-neutral-30' %> flex items-center justify-center">
+              <% if @selected_category == category %>
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5L4 7L8 3" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <% end %>
+            </span>
+            <%= category %>
+          <% end %>
+        <% end %>
+      </div>
+    </aside>
+
+    <%# Right: Terms grid %>
+    <div class="flex-1">
+      <%# Count (Russian pluralization) %>
+      <% n = @terms.size; n10 = n % 10; n100 = n % 100
+         word = if n10 == 1 && n100 != 11 then "термин"
+                elsif (2..4).cover?(n10) && !(12..14).cover?(n100) then "термина"
+                else "терминов" end %>
+      <p class="text-[16px] font-display text-neutral-160 mb-[32px]">
+        Найдено <%= n %> <%= word %>
+      </p>
+
+      <% if @terms.any? %>
+        <div class="grid grid-cols-4 gap-[16px]">
+          <% @terms.each do |term| %>
+            <%= render partial: "terms/card", locals: { term: term } %>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="text-neutral-80 text-[16px]">Нет терминов для выбранной категории.</p>
+      <% end %>
+    </div>
+  </div>
+</section>

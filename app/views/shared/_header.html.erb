@@ -1,0 +1,29 @@
+<%# Fixed header — shared across all pages. On home page, transparent bg over hero. %>
+<% is_home = current_page?(root_path) %>
+
+<header class="fixed top-0 left-0 right-0 z-50 w-full transition-colors duration-200 <%= is_home ? 'bg-transparent' : 'bg-white/95 backdrop-blur-md border-b border-neutral-30' %>">
+  <div class="mx-auto flex w-[1440px] items-center justify-between px-[32px] py-4">
+    <%= link_to root_path, data: { turbo_action: "replace" } do %>
+      <img src="/images/logo.png" alt="DSHub" class="h-9">
+    <% end %>
+
+    <nav class="flex items-center gap-[8px] bg-neutral-10 p-1 rounded-[16px]">
+      <%= link_to "Главная", root_path,
+          class: "tab tab-lg #{current_page?(root_path) ? 'bg-white text-neutral-160 shadow-sm' : ''}",
+          data: { turbo_action: "replace" } %>
+      <%= link_to "Кейсы", cases_path,
+          class: "tab tab-lg #{current_page?(cases_path) ? 'bg-white text-neutral-160 shadow-sm' : ''}",
+          data: { turbo_action: "replace" } %>
+      <%= link_to "Глоссарий", glossary_path,
+          class: "tab tab-lg #{current_page?(glossary_path) ? 'bg-white text-neutral-160 shadow-sm' : ''}",
+          data: { turbo_action: "replace" } %>
+      <%= link_to "Ресурсы", resources_path,
+          class: "tab tab-lg #{current_page?(resources_path) ? 'bg-white text-neutral-160 shadow-sm' : ''}",
+          data: { turbo_action: "replace" } %>
+    </nav>
+
+    <%= link_to "Предложить кейс", root_path(anchor: "share-case"),
+        class: "btn btn-black",
+        data: { turbo: false } %>
+  </div>
+</header>

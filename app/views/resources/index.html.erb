@@ -1,0 +1,98 @@
+<%# ==================== HERO ==================== %>
+<% content_for :hero do %>
+  <section class="relative w-[1440px] mx-auto h-[600px] overflow-hidden bg-white">
+    <%# Background: repeating "РЕСУРСЫ" text %>
+    <div class="absolute inset-0 pointer-events-none select-none flex items-center justify-center overflow-hidden">
+      <div class="text-center font-[450] tracking-[-12px] text-neutral-130 opacity-[0.08] leading-[0.72] text-[308px] whitespace-nowrap uppercase"
+           style="font-family: var(--font-condensed);">
+        Ресурсы Ресурсы<br>Ресурсы Ресурсы
+      </div>
+    </div>
+
+    <%# Radial gradient fade to white %>
+    <div class="absolute inset-0 pointer-events-none"
+         style="background: radial-gradient(50% 50% at 50% 50%, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 98.2%);"></div>
+
+    <%# 3D Star illustration (centered) %>
+    <div class="absolute left-1/2 top-[180px] -translate-x-1/2 w-[234px] h-[203px] pointer-events-none z-10">
+      <img src="/images/hero-star.png" alt="" class="w-full h-full object-contain">
+    </div>
+  </section>
+<% end %>
+
+<%# ==================== CONTENT ==================== %>
+<section class="w-[1440px] mx-auto px-[32px] pb-[80px]">
+  <%# Centered 1028px content area %>
+  <div class="mx-auto" style="width: 1028px;">
+    <%# Filter chips %>
+    <div class="flex gap-[4px] mb-[24px]">
+      <% @resource_types.each do |type| %>
+        <%= link_to type,
+            toggle_param_url(:resource_type, type, current_params: params),
+            data: { turbo_action: "replace" },
+            class: "chip chip-outline #{'active' if @selected_types.include?(type)}" %>
+      <% end %>
+    </div>
+
+    <%# Count %>
+    <% n = @resources.size; n10 = n % 10; n100 = n % 100
+       word = if n10 == 1 && n100 != 11 then "ресурс"
+              elsif (2..4).cover?(n10) && !(12..14).cover?(n100) then "ресурса"
+              else "ресурсов" end %>
+    <p class="text-[16px] font-display text-neutral-160 mb-[32px]">
+      Найдено <%= n %> <%= word %>
+    </p>
+
+    <%# Cards — chunked into blocks of 5 (L + M / 3M pattern) %>
+    <% if @resources.any? %>
+      <div class="flex flex-col gap-[16px]">
+        <% @resources.each_slice(5).each do |chunk| %>
+          <%# Row 1: L (680) + M (332) %>
+          <div class="flex gap-[16px]">
+            <% chunk[0..1].each_with_index do |resource, i| %>
+              <%= render partial: "shared/resource_card",
+                  locals: { resource: resource, size: (i == 0 ? :l : :m) } %>
+            <% end %>
+          </div>
+          <%# Row 2: 3×M (if there are 3rd-5th resources) %>
+          <% if chunk.size > 2 %>
+            <div class="flex gap-[16px]">
+              <% chunk[2..4].each do |resource| %>
+                <%= render partial: "shared/resource_card",
+                    locals: { resource: resource, size: :m } %>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="text-neutral-80 text-[16px]">Нет ресурсов для выбранного типа.</p>
+    <% end %>
+  </div>
+</section>
+
+<%# ==================== FORM ==================== %>
+<section class="w-[1440px] mx-auto px-[32px] mt-[80px]">
+  <div class="max-w-[600px] mx-auto text-center">
+    <h2 class="text-[40px] font-display font-[450] leading-[1.1] tracking-[-0.04em] text-neutral-160 mb-10">
+      Хотите поделиться<br>своим кейсом?
+    </h2>
+
+    <%= form_with model: CaseApplication.new, url: case_applications_path, local: true, class: "flex flex-col gap-4" do |f| %>
+      <%= f.text_field :name, placeholder: "Ваше имя", required: true, class: "input-field" %>
+      <%= f.text_field :telegram, placeholder: "Telegram", required: true, class: "input-field" %>
+      <%= f.text_field :other_contact, placeholder: "Другой контакт для связи", class: "input-field" %>
+      <%= f.text_field :company, placeholder: "Название вашей компании", required: true, class: "input-field" %>
+
+      <label class="flex items-center gap-2 text-sm text-neutral-80 mt-2 cursor-pointer">
+        <input type="checkbox" name="consent" required class="w-4 h-4 rounded border-neutral-30">
+        Даю согласие на обработку персональных данных
+      </label>
+
+      <div class="mt-4">
+        <%= f.submit "Отправить заявку", class: "btn btn-black w-full justify-center cursor-pointer" %>
+      </div>
+    <% end %>
+  </div>
+</section>
+

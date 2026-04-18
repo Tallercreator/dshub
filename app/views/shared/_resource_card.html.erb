@@ -1,0 +1,63 @@
+<%# Resource card — size :l (680×280) or :m (332×280), optional stretch for flex row %>
+<%
+  is_large   = (size == :l)
+  do_stretch = local_assigns.fetch(:stretch, false)
+  source_label = resource_source_label(resource.url)
+  has_cover  = resource.cover_image.attached?
+  outer_width = if is_large
+    "w-[680px]"
+  elsif do_stretch
+    "flex-1 min-w-0"
+  else
+    "w-[332px]"
+  end
+%>
+
+<%= link_to resource.safe_url, target: "_blank", rel: "noopener",
+    class: "group block shrink-0 #{outer_width}" do %>
+  <article class="relative bg-neutral-10 h-[280px] rounded-[24px] overflow-hidden p-[16px] flex <%= is_large ? 'flex-row items-stretch justify-between gap-[16px]' : 'flex-col items-start justify-between' %>">
+
+    <%# Left side: chip row (top) + title (bottom) %>
+    <div class="relative z-10 flex flex-col <%= is_large ? 'h-full shrink-0 justify-between' : 'w-full h-full justify-between' %>">
+      <%# Top row: type chip + source badge %>
+      <div class="flex items-center justify-between w-full">
+        <% if resource.resource_type.present? %>
+          <span class="chip chip-white">
+            <%= resource.resource_type %>
+          </span>
+        <% end %>
+
+        <% if !is_large && source_label %>
+          <% if source_label == "Habr" %>
+            <img src="/images/logo-habr.png" alt="Habr" class="h-[26px] w-auto object-contain mr-[4px]">
+          <% else %>
+            <span class="font-display font-medium text-[18px] text-neutral-160 tracking-[-0.04em] mr-[4px]">
+              <%= source_label %>
+            </span>
+          <% end %>
+        <% end %>
+      </div>
+
+      <%# Title (bottom) %>
+      <p class="font-display font-[450] text-[24px] leading-[1.05] tracking-[-0.04em] text-neutral-160 max-w-[240px] <%= 'pr-2' unless is_large %>">
+        <%= resource.title %>
+      </p>
+    </div>
+
+    <%# Right side image — L card: dedicated image box %>
+    <% if is_large %>
+      <div class="relative z-10 h-[248px] w-[378px] rounded-[12px] overflow-hidden bg-neutral-20 shrink-0">
+        <% if has_cover %>
+          <%= image_tag resource.cover_image, class: "w-full h-full object-cover" %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <%# M card: cover image as decorative background (centered) %>
+    <% if !is_large && has_cover %>
+      <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <%= image_tag resource.cover_image, class: "max-w-[70%] max-h-[55%] object-contain" %>
+      </div>
+    <% end %>
+  </article>
+<% end %>

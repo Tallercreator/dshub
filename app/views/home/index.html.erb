@@ -1,0 +1,219 @@
+<%# ==================== HERO SECTION ==================== %>
+<% content_for :hero do %>
+  <section class="relative w-[1440px] mx-auto h-[680px] overflow-hidden bg-white">
+    <%# Background: repeating condensed text %>
+    <div class="absolute inset-0 pointer-events-none select-none flex items-center justify-center overflow-hidden">
+      <div class="text-center font-[450] tracking-[-12px] text-neutral-130 opacity-[0.08] leading-[0.72] text-[308px] whitespace-nowrap uppercase"
+           style="font-family: var(--font-condensed);">
+        Дизайн-систем<br>Бест практис
+      </div>
+    </div>
+
+    <%# Radial gradient fade to white %>
+    <div class="absolute inset-0 pointer-events-none"
+         style="background: radial-gradient(50% 50% at 50% 50%, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 98.2%);"></div>
+    <div class="absolute left-1/2 top-[120px] -translate-x-1/2 w-[300px] h-[270px] pointer-events-none">
+      <img src="/images/hero-heart.png" alt="" class="w-full h-full object-contain">
+    </div>
+    <div class="absolute bottom-[174px] left-[32px] z-10">
+      <h1 class="text-[32px] font-display font-[450] leading-[1] tracking-[-0.04em] text-neutral-160 m-0">
+        Лучшие практики<br>
+        дизайн-систем в российских<br>
+        цифровых продуктах
+      </h1>
+    </div>
+
+    <%# Company logos bar — bottom of hero %>
+    <div class="absolute bottom-[32px] left-[32px] right-[32px] z-10 flex gap-[8px] items-center">
+      <% [
+        { src: "otp.svg", alt: "ОТП Банк", h: 29, company: "ОТП Банк" },
+        { src: "dodo.svg", alt: "Додо Пицца", h: 29, company: "Dodo Brands" },
+        { src: "avito.svg", alt: "Avito", h: 29, company: "Авито" },
+        { src: "alfa.svg", alt: "Альфа-Банк", h: 29, company: "Альфа" },
+        { src: "sber.svg", alt: "Сбер Банк", h: 29, company: "Сбер" },
+        { src: "mts.svg", alt: "МТС Финтех", h: 38, company: "МТС Финтех" },
+      ].each do |logo| %>
+        <% kase = @logo_cases[logo[:company]] %>
+        <% card_classes = "bg-neutral-10 w-[190px] h-[110px] rounded-[24px] flex items-center justify-center p-[10px] shrink-0 #{'transition hover:bg-neutral-20' if kase}" %>
+        <% if kase %>
+          <%= link_to case_path(kase), class: "block shrink-0", "aria-label": "Кейс — #{logo[:alt]}" do %>
+            <div class="<%= card_classes %>">
+              <img src="/images/<%= logo[:src] %>" alt="<%= logo[:alt] %>" class="h-[<%= logo[:h] %>px] w-[150px] object-contain">
+            </div>
+          <% end %>
+        <% else %>
+          <div class="<%= card_classes %>">
+            <img src="/images/<%= logo[:src] %>" alt="<%= logo[:alt] %>" class="h-[<%= logo[:h] %>px] w-[150px] object-contain">
+          </div>
+        <% end %>
+      <% end %>
+
+      <%# Black "Смотреть кейсы" button card — UI-KIT node 24:5701 %>
+      <%= link_to cases_path, class: "block shrink-0" do %>
+        <div class="bg-neutral-130 w-[190px] h-[110px] rounded-[24px] flex flex-col items-center justify-center gap-[16px] px-[12px] py-0 overflow-hidden">
+          <div class="font-display font-medium text-[16px] leading-none tracking-[-0.04em] text-white text-center flex flex-col gap-[2px]">
+            <span>Смотреть кейсы</span>
+      
+          </div>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="shrink-0 block rotate-180 -scale-y-100" aria-hidden="true">
+            <path d="M12.0806 2.84572L4.92843 0.628965C4.17212 0.394533 3.5506 0.201888 3.05397 0.0965715C2.55984 -0.00822 2.03778 -0.0638133 1.54911 0.121872C0.867399 0.380907 0.336094 0.932469 0.100072 1.62616C-0.0691203 2.12341 0.00241883 2.64672 0.121941 3.14038C0.242075 3.63655 0.452855 4.25558 0.709361 5.00889L3.10806 12.0539C3.42594 12.9876 3.68241 13.7408 3.92733 14.2959C4.16356 14.8314 4.46394 15.3708 4.96897 15.6665C5.65229 16.0664 6.48562 16.1092 7.2059 15.7812C7.73812 15.5389 8.0915 15.033 8.38067 14.5245C8.68043 13.9973 9.01173 13.2742 9.4223 12.378L10.0684 10.9677C10.2169 10.6437 10.2492 10.5818 10.2848 10.5322C10.3259 10.4749 10.3742 10.4232 10.4285 10.3784C10.4756 10.3395 10.5351 10.3033 10.8474 10.1344L12.6908 9.13688C13.522 8.6872 14.1948 8.32319 14.6836 7.9996C15.1577 7.68569 15.6236 7.30914 15.8322 6.77181C16.1163 6.04072 16.0364 5.21715 15.6173 4.55511C15.3092 4.06854 14.7799 3.78968 14.2543 3.57393C13.7126 3.35154 12.9825 3.12526 12.0806 2.84572Z" fill="white"/>
+          </svg>
+        </div>
+      <% end %>
+    </div>
+  </section>
+<% end %>
+
+<%# ==================== SECTION: CASES ==================== %>
+<%# Figma node 7:3216 — Section_Cases_Main_Layout %>
+<section class="w-[1440px] mx-auto px-[32px]">
+  <div class="w-[1376px] bg-gradient-to-b from-neutral-10 to-white rounded-t-[48px] pt-[100px] pl-[116px] pr-[58px] pb-[32px]">
+    <% if @cases.any? %>
+      <div class="flex flex-col items-end gap-[32px] w-full">
+        <%# Layout block: title + row of 2 cards (right-aligned via items-end on parent) %>
+        <div class="flex flex-col gap-[56px] items-start">
+          <div class="flex flex-col gap-[4px]">
+            <div class="text-[48px] font-display font-[450] leading-none tracking-[-0.04em] text-neutral-160">Что внутри систем сегодня</div>
+            
+          </div>
+
+          <%# Row 1: 2 cards %>
+          <div class="flex gap-[16px]">
+            <% @cases.first(2).each do |kase| %>
+              <%= render partial: "shared/case_card", locals: { kase: kase } %>
+            <% end %>
+          </div>
+        </div>
+
+        <%# Row 2: 3 cards (full width) %>
+        <% if @cases.size > 2 %>
+          <div class="flex gap-[16px]">
+            <% @cases[2..4].each do |kase| %>
+              <%= render partial: "shared/case_card", locals: { kase: kase } %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="py-20">
+        <h2 class="text-[48px] font-display font-[450] leading-none tracking-[-0.04em] text-neutral-160 mb-4">
+          Что внутри<br>систем сегодня
+        </h2>
+        <p class="text-neutral-80">Пока нет опубликованных кейсов.</p>
+      </div>
+    <% end %>
+  </div>
+</section>
+
+<%# ==================== SECTION: GLOSSARY ==================== %>
+<section class="w-[1440px] mx-auto px-[32px] mt-[80px]">
+  <div class="w-[1376px] bg-gradient-to-b from-neutral-10 to-white rounded-t-[48px] pt-[100px] px-[116px] pb-[32px]">
+    <div class="flex items-start justify-between mb-[32px]">
+      <div>
+        <h2 class="text-[48px] font-display font-[450] leading-[1] tracking-[-0.04em] text-neutral-160 mb-3">
+          Глоссарий
+        </h2>
+        <p class="text-[20px] font-display font-medium tracking-[-0.03em] text-neutral-80">
+          простым языком простые и<br>сложные элементы
+        </p>
+      </div>
+      <%= link_to glossary_path, class: "link link-black link-xl flex items-center gap-1" do %>
+        Перейти к разделу <span class="text-sm">↗</span>
+      <% end %>
+    </div>
+
+    <div class="flex gap-[16px]">
+      <% (1..4).each do |i| %>
+        <%= link_to glossary_path, class: "block" do %>
+          <div class="bg-neutral-10 w-[274px] h-[323px] rounded-[24px] flex items-center justify-center p-4">
+            <img src="/images/term-card-<%= i %>.png" alt="" class="w-full h-full object-contain rounded-lg">
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</section>
+
+<%# ==================== SECTION: RESOURCES ==================== %>
+<section class="w-[1440px] mx-auto px-[32px] mt-[80px]">
+  <div class="w-[1376px]">
+    <div class="flex items-start justify-between mb-[32px]">
+      <h2 class="text-[48px] font-display font-[450] leading-[1] tracking-[-0.04em] text-neutral-160">
+        Ресурсы
+      </h2>
+      <p class="text-[20px] font-display font-medium tracking-[-0.03em] text-neutral-80 text-right">
+        открытые ресурсы<br>для общего развития
+      </p>
+    </div>
+
+    <% if @resources.any? %>
+      <%
+        # Row 1 (3 cards): M + L + M = 332 + 680 + 332 (gaps 16)
+        # Row 2 (3 cards): M stretched via flex-1
+        row1 = @resources.first(3).to_a
+        row2 = @resources[3..5].to_a
+      %>
+
+      <%# Row 1: M + L + M %>
+      <% if row1.any? %>
+        <div class="flex gap-[16px] mb-[16px]">
+          <% row1.each_with_index do |resource, i| %>
+            <% is_large = (i == 1 && row1.size >= 2) %>
+            <%= render partial: "shared/resource_card", locals: { resource: resource, size: is_large ? :l : :m, stretch: false } %>
+          <% end %>
+        </div>
+      <% end %>
+
+      <%# Row 2: 3 × M stretched %>
+      <% if row2.any? %>
+        <div class="flex gap-[16px] mb-[32px]">
+          <% row2.each do |resource| %>
+            <%= render partial: "shared/resource_card", locals: { resource: resource, size: :m, stretch: true } %>
+          <% end %>
+        </div>
+      <% end %>
+
+      <div class="flex justify-center">
+        <%= link_to "Перейти в раздел", resources_path, class: "btn btn-black" %>
+      </div>
+    <% else %>
+      <p class="text-neutral-80">Пока нет опубликованных ресурсов.</p>
+    <% end %>
+  </div>
+</section>
+
+<%# ==================== SECTION: FORM ==================== %>
+<section id="share-case" style="scroll-margin-top: 100px;" class="w-[1440px] mx-auto px-[32px] mt-[80px]">
+  <div class="w-[1376px]">
+    <div class="max-w-[600px] mx-auto text-center">
+      <h2 class="text-[40px] font-display font-[450] leading-[1.1] tracking-[-0.04em] text-neutral-160 mb-10">
+        Хотите поделиться<br>своим кейсом?
+      </h2>
+
+      <%= form_with model: @case_application, local: true, class: "flex flex-col gap-4" do |f| %>
+        <% if @case_application.errors.any? %>
+          <div class="notice notice-error text-left">
+            <% @case_application.errors.full_messages.each do |message| %>
+              <p><%= message %></p>
+            <% end %>
+          </div>
+        <% end %>
+
+        <%= f.text_field :name, placeholder: "Ваше имя", required: true, class: "input-field" %>
+        <%= f.text_field :telegram, placeholder: "Telegram", required: true, class: "input-field" %>
+        <%= f.text_field :other_contact, placeholder: "Другой контакт для связи", class: "input-field" %>
+        <%= f.text_field :company, placeholder: "Название вашей компании", required: true, class: "input-field" %>
+
+        <label class="flex items-center gap-2 text-sm text-neutral-80 mt-2 cursor-pointer">
+          <input type="checkbox" name="consent" required class="w-4 h-4 rounded border-neutral-30">
+          Даю согласие на обработку персональных данных
+        </label>
+
+        <div class="mt-4">
+          <%= f.submit "Отправить заявку", class: "btn btn-black w-full justify-center cursor-pointer" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
+

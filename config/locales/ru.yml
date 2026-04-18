@@ -1,0 +1,192 @@
+ru:
+  activerecord:
+    models:
+      case:
+        one: Кейс
+        few: Кейса
+        many: Кейсов
+        other: Кейсы
+      term:
+        one: Термин
+        few: Термина
+        many: Терминов
+        other: Термины
+      resource:
+        one: Ресурс
+        few: Ресурса
+        many: Ресурсов
+        other: Ресурсы
+      case_application:
+        one: Заявка на кейс
+        few: Заявки на кейсы
+        many: Заявок на кейсы
+        other: Заявки на кейсы
+      admin_user:
+        one: Администратор
+        other: Администраторы
+    attributes:
+      case:
+        company: Компания
+        ds_name: Дизайн-система
+        tags: Теги
+        accent_color: Акцентный цвет
+        cover_image: Обложка
+        tldr: Главное
+        context: Контекст
+        positioning: Позиционирование
+        composition: Состав
+        processes: Процессы
+        documentation: Документация
+        design_code_sync: Синхронизация дизайна и кода
+        quality: Качество
+        scaling: Масштабирование
+        unique_practices: Уникальные практики
+        conclusions: Выводы
+        quotes: Цитаты
+        published: Опубликован
+        created_at: Создан
+        updated_at: Обновлён
+      term:
+        term: Термин
+        definition: Определение
+        category: Категория
+        sources: Источники
+        published: Опубликован
+        created_at: Создан
+        updated_at: Обновлён
+      resource:
+        resource_type: Тип
+        title: Заголовок
+        url: Ссылка
+        description: Описание
+        tags: Теги
+        published: Опубликован
+        created_at: Создан
+        updated_at: Обновлён
+      case_application:
+        name: Имя
+        telegram: Telegram
+        company: Компания
+        other_contact: Другой контакт
+        created_at: Отправлена
+  active_admin:
+    dashboard: Панель
+    dashboard_welcome:
+      welcome: Добро пожаловать в ActiveAdmin
+      call_to_action: Чтобы начать работу, добавьте файлы ресурсов в app/admin
+    view: Просмотр
+    edit: Редактировать
+    delete: Удалить
+    delete_confirmation: Вы уверены, что хотите удалить?
+    new_model: Создать %{model}
+    create_model: Создать %{model}
+    update_model: Сохранить %{model}
+    edit_model: Редактировать %{model}
+    delete_model: Удалить %{model}
+    details: Детали %{model}
+    cancel: Отмена
+    empty: Пусто
+    previous: "« Назад"
+    next: "Вперёд »"
+    download: Скачать
+    has_many_new: Добавить %{model}
+    has_many_delete: Удалить
+    has_many_remove: Убрать
+    filters:
+      buttons:
+        filter: Применить
+        clear: Очистить
+      predicates:
+        contains: содержит
+        equals: равно
+        starts_with: начинается с
+        ends_with: заканчивается на
+        greater_than: больше чем
+        less_than: меньше чем
+    search_status:
+      headline: Поиск
+      current_scope: Раздел
+      current_filters: Фильтры
+      no_current_filters: Без фильтров
+    main_content: Пожалуйста, реализуйте %{model}#main_content, чтобы отобразить содержимое.
+    pagination:
+      empty: "Нет %{model}"
+      single: "Отображается <b>1</b> %{model}"
+      one_page: "Отображается <b>всё %{n}</b> %{model}"
+      multiple: "Отображается %{model} <b>%{from}&nbsp;&ndash;&nbsp;%{to}</b> из <b>%{total}</b>"
+      multiple_without_total: "Отображается %{model} <b>%{from}&nbsp;&ndash;&nbsp;%{to}</b>"
+      entry:
+        one: запись
+        few: записи
+        many: записей
+        other: записи
+    any: Любой
+    blank_slate:
+      content: Нет %{resource_name} ещё.
+      link: Создать
+    sidebars:
+      filters: Фильтры
+    batch_actions:
+      button_label: Действия
+      default_confirmation: Вы уверены, что хотите сделать это?
+      delete_confirmation: Вы уверены, что хотите удалить эти %{plural_model}?
+      succesfully_destroyed:
+        one: Удалён %{count} %{model}
+        few: Удалено %{count} %{plural_model}
+        many: Удалено %{count} %{plural_model}
+        other: Удалено %{count} %{plural_model}
+      selection_toggle_explanation: "(Переключить выделение)"
+      link: Ссылка
+      action_label: "%{title} выделенное"
+      labels:
+        destroy: Удалить
+    comments:
+      created_at: Создано
+      resource_type: Тип ресурса
+      author_type: Тип автора
+      body: Тело
+      author: Автор
+      title_content: Комментарии (%{count})
+      add: Добавить комментарий
+      delete: Удалить комментарий
+      delete_confirmation: Вы уверены, что хотите удалить этот комментарий?
+      resource: Ресурс
+      no_comments_yet: Нет комментариев.
+      title: Комментарий
+      errors:
+        empty_text: Не удалось сохранить комментарий, текст пуст.
+    devise:
+      username:
+        title: Email
+      email:
+        title: Email
+      subdomain:
+        title: Поддомен
+      password:
+        title: Пароль
+      sign_up:
+        title: Регистрация
+        submit: Зарегистрироваться
+      login:
+        title: Вход
+        remember_me: Запомнить меня
+        submit: Войти
+      reset_password:
+        title: Забыли пароль?
+        submit: Сбросить мой пароль
+      change_password:
+        title: Изменить ваш пароль
+        submit: Изменить пароль
+      unlock:
+        title: Повторно отправить инструкции по разблокировке
+        submit: Повторно отправить инструкции по разблокировке
+      resend_confirmation_instructions:
+        title: Повторно отправить инструкции подтверждения
+        submit: Повторно отправить инструкции подтверждения
+      links:
+        sign_in: Вход
+        sign_out: Выход
+        forgot_your_password: Забыли пароль?
+        sign_in_with_omniauth_provider: Войти с %{provider}
+        resend_unlock_instructions: Повторно отправить инструкции по разблокировке
+        resend_confirmation_instructions: Повторно отправить инструкции подтверждения

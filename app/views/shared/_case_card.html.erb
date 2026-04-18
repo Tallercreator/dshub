@@ -1,0 +1,42 @@
+<%# Case card — Figma node 7:2846 (Card_Cases) %>
+<%= link_to case_path(kase), class: "group block w-[390px] shrink-0 relative", data: { turbo_frame: "_top" } do %>
+  <div class="flex flex-col gap-[16px] items-start">
+    <%# Image block — 390×280, rounded-24, bg #f6f6f6 %>
+    <div class="bg-neutral-10 h-[280px] w-full rounded-[24px] overflow-hidden relative">
+      <% if kase.cover_image.attached? %>
+        <%= image_tag url_for(kase.cover_image), class: "w-full h-full object-cover", alt: kase.company %>
+      <% end %>
+    </div>
+
+    <%# Tags + Title — 378px wide %>
+    <div class="flex flex-col gap-[12px] items-start w-[378px]">
+      <% if kase.tag_list.any? %>
+        <div class="flex gap-[24px] items-center">
+          <% kase.tag_list.each do |tag| %>
+            <span class="flex items-center gap-[4px] text-[16px] font-display font-normal leading-none text-neutral-60">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="shrink-0" aria-hidden="true">
+                <path d="M5 5H11V11M11 5L5 11" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <%= tag %>
+            </span>
+          <% end %>
+        </div>
+      <% end %>
+
+      <p class="text-[20px] font-display font-[450] leading-[1.1] tracking-[-0.04em] text-neutral-160 m-0">
+        <% if kase.card_title.present? %>
+          <%= kase.card_title %>
+        <% else %>
+          <%= kase.company %> — «<%= truncate(kase.tldr.to_s.lines.first.to_s.strip, length: 70) %>»
+        <% end %>
+      </p>
+    </div>
+
+    <%# Industry chip — absolute top-20 left-20 %>
+    <% if kase.industry.present? %>
+      <span class="absolute top-[20px] left-[20px] badge <%= 'badge-white' if kase.case_format == 'Обзор' %>">
+        <%= kase.industry %>
+      </span>
+    <% end %>
+  </div>
+<% end %>

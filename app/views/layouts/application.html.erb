@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <title><%= content_for(:title) || "DSHub — онлайн-медиа о дизайн-системах" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Display:wght@400;500;600;700&family=Anton&display=swap" rel="stylesheet">
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="min-h-screen flex flex-col">
+    <%# Fixed header — always on top %>
+    <%= render "shared/header" %>
+
+    <% if content_for?(:hero) %>
+      <%# Hero pages: hero fills from top, header floats over it %>
+      <%= yield :hero %>
+    <% else %>
+      <%# Non-hero pages: spacer for fixed header (py-4=32 + btn h-48 = 80px) %>
+      <div class="h-[80px] shrink-0"></div>
+    <% end %>
+
+    <main class="flex-1 pb-[80px] <%= content_for?(:hero) ? '' : 'mx-auto w-[1440px] px-[32px] py-10' %>">
+      <% if notice %>
+        <div class="notice notice-success mb-6"><%= notice %></div>
+      <% end %>
+      <% if alert %>
+        <div class="notice notice-error mb-6"><%= alert %></div>
+      <% end %>
+
+      <%= yield %>
+    </main>
+
+    <% if content_for?(:custom_footer) %>
+      <%= yield :custom_footer %>
+    <% else %>
+      <%= render "shared/footer" %>
+    <% end %>
+  </body>
+</html>

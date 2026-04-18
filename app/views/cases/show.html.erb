@@ -1,0 +1,201 @@
+<% content_for :title, "#{@case.company} — #{@case.ds_name}" %>
+<% accent = @case.accent_color.presence || "#FF6900" %>
+
+<%# ==================== HERO ==================== %>
+<% content_for :hero do %>
+  <section class="relative w-[1440px] mx-auto h-[600px] overflow-hidden bg-white">
+    <%# Background: repeating condensed text (company + ds_name) %>
+    <div class="absolute inset-0 pointer-events-none select-none flex items-center justify-center overflow-hidden">
+      <div class="text-center font-[450] tracking-[-12px] text-neutral-130 opacity-[0.08] leading-[0.72] text-[308px] whitespace-nowrap uppercase"
+           style="font-family: var(--font-condensed);">
+        <%= @case.company %> <%= @case.ds_name %><br>
+        Дизайн-систем
+      </div>
+    </div>
+
+    <%# Radial gradient fade %>
+    <div class="absolute inset-0 pointer-events-none"
+         style="background: radial-gradient(50% 50% at 50% 50%, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 98.2%);"></div>
+
+    <%# Cover image or accent circle in center — hero_image override, else cover_image, else accent circle %>
+    <% hero = @case.hero_image.attached? ? @case.hero_image : (@case.cover_image.attached? ? @case.cover_image : nil) %>
+    <div class="absolute left-1/2 top-[180px] -translate-x-1/2 w-[234px] h-[203px] pointer-events-none z-10">
+      <% if hero %>
+        <%= image_tag url_for(hero), class: "w-full h-full object-contain", alt: @case.company %>
+      <% else %>
+        <div class="w-full h-full rounded-full flex items-center justify-center font-display font-medium text-white text-[48px]"
+             style="background-color: <%= accent %>;">
+          <%= @case.company.to_s.first.upcase %>
+        </div>
+      <% end %>
+    </div>
+  </section>
+<% end %>
+
+<%# ==================== CONTENT: 2-COLUMN ==================== %>
+<section class="w-[1440px] mx-auto px-[32px] pb-[80px]">
+  <div class="flex gap-[32px] justify-center">
+
+    <%# ========= LEFT SIDEBAR ========= %>
+    <aside class="w-[280px] shrink-0">
+      <div class="sticky top-[100px] flex flex-col gap-[24px]">
+        <%# Back link %>
+        <%= link_to cases_path,
+            data: { turbo_action: "replace" },
+            class: "inline-flex items-center gap-2 w-fit chip chip-outline" do %>
+          <span>←</span>
+          Все кейсы
+        <% end %>
+
+        <%# Industry pill %>
+        <% if @case.industry.present? %>
+          <span class="case-sidebar-pill"><%= @case.industry %></span>
+        <% end %>
+
+        <%# Sidebar fields %>
+        <div class="flex flex-col gap-[20px]">
+          <% focus_text = @case.focus_description.presence || @case.tag_list.join(", ") %>
+          <% if focus_text.present? %>
+            <div class="case-sidebar-field">
+              <div class="case-sidebar-label">Фокус кейса:</div>
+              <div class="case-sidebar-value"><%= simple_format(focus_text) %></div>
+            </div>
+          <% end %>
+
+          <% if @case.speaker_role.present? %>
+            <div class="case-sidebar-field">
+              <div class="case-sidebar-label">Роль эксперта:</div>
+              <div class="case-sidebar-value"><%= simple_format(@case.speaker_role) %></div>
+            </div>
+          <% end %>
+
+          <% if @case.artifacts.present? %>
+            <div class="case-sidebar-field">
+              <div class="case-sidebar-label">Артефакты в кейсе:</div>
+              <div class="case-sidebar-value"><%= simple_format(@case.artifacts) %></div>
+            </div>
+          <% end %>
+        </div>
+
+        <%# Intro paragraph %>
+        <% if @case.intro.present? %>
+          <div class="case-sidebar-intro"><%= simple_format(@case.intro) %></div>
+        <% end %>
+      </div>
+    </aside>
+
+    <%# ========= MAIN CONTENT ========= %>
+    <main class="w-[796px] shrink-0 flex flex-col gap-[56px]">
+      <%# Page title %>
+      <h1 class="text-[40px] font-display font-[450] leading-[1.1] tracking-[-0.04em] text-neutral-160 m-0">
+        <%= @case.card_title.presence || "#{@case.company} — #{@case.ds_name}" %>
+      </h1>
+
+      <%# Sections %>
+      <% ApplicationHelper::CASE_SECTION_TITLES.each do |field, title| %>
+        <% value = @case.send(field) %>
+        <% next if value.blank? %>
+
+        <% body, quote = field == :quotes ? [value, nil] : split_section_quote(value) %>
+
+        <section id="<%= field %>" class="flex flex-col gap-[24px]">
+          <h2 class="text-[24px] font-display font-[450] leading-[1.15] tracking-[-0.04em] text-neutral-160 m-0">
+            <%= title %>
+          </h2>
+
+          <div class="text-[16px] font-display leading-[1.5] text-neutral-130 case-body">
+            <%= render_case_section_body(body.to_s, field: field) %>
+          </div>
+
+          <% if quote.present? %>
+            <blockquote class="case-quote" style="--case-quote-accent: <%= accent %>;">
+              <span class="case-quote-mark case-quote-mark--open" aria-hidden="true">
+                <%= render "shared/quote_mark" %>
+              </span>
+              <span class="case-quote-text"><%= quote %></span>
+              <span class="case-quote-mark case-quote-mark--close" aria-hidden="true">
+                <%= render "shared/quote_mark" %>
+              </span>
+            </blockquote>
+          <% end %>
+        </section>
+      <% end %>
+    </main>
+  </div>
+</section>
+
+<%# ==================== MENTIONED TERMS ==================== %>
+<% if @mentioned_terms.any? %>
+  <section class="w-[1440px] mx-auto px-[32px] mt-[80px]">
+    <div class="mx-auto" style="width: 1108px;">
+      <h2 class="text-[40px] font-display font-[450] leading-[1.1] tracking-[-0.04em] text-neutral-160 mb-[32px]">
+        Термины из кейса
+      </h2>
+
+      <div class="flex gap-[16px] overflow-x-auto pb-4 snap-x">
+        <% @mentioned_terms.each do |term| %>
+          <div class="w-[240px] shrink-0 snap-start">
+            <%= render partial: "terms/card", locals: { term: term } %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </section>
+<% end %>
+
+<%# ==================== RECOMMENDED RESOURCES ==================== %>
+<% if @recommended_resources.any? %>
+  <section class="w-[1440px] mx-auto px-[32px] mt-[80px]">
+    <div class="mx-auto" style="width: 1108px;">
+      <h2 class="text-[40px] font-display font-[450] leading-[1.1] tracking-[-0.04em] text-neutral-160 mb-[32px]">
+        Ресурсы, которые посоветовал дизайнер
+      </h2>
+
+      <%# Grid by chunks of 5 (L+M / 3M) — same as /resources %>
+      <div class="flex flex-col gap-[16px]">
+        <% @recommended_resources.each_slice(5).each do |chunk| %>
+          <div class="flex gap-[16px]">
+            <% chunk[0..1].each_with_index do |resource, i| %>
+              <%= render partial: "shared/resource_card",
+                  locals: { resource: resource, size: (i == 0 ? :l : :m) } %>
+            <% end %>
+          </div>
+          <% if chunk.size > 2 %>
+            <div class="flex gap-[16px]">
+              <% chunk[2..4].each do |resource| %>
+                <%= render partial: "shared/resource_card",
+                    locals: { resource: resource, size: :m } %>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </section>
+<% end %>
+
+<%# ==================== FORM ==================== %>
+<section id="share-case" style="scroll-margin-top: 100px;" class="w-[1440px] mx-auto px-[32px] mt-[80px]">
+  <div class="max-w-[600px] mx-auto text-center">
+    <h2 class="text-[40px] font-display font-[450] leading-[1.1] tracking-[-0.04em] text-neutral-160 mb-10">
+      Хотите поделиться<br>своим кейсом?
+    </h2>
+
+    <%= form_with model: CaseApplication.new, url: case_applications_path, local: true, class: "flex flex-col gap-4" do |f| %>
+      <%= f.text_field :name, placeholder: "Ваше имя", required: true, class: "input-field" %>
+      <%= f.text_field :telegram, placeholder: "Telegram", required: true, class: "input-field" %>
+      <%= f.text_field :other_contact, placeholder: "Другой контакт для связи", class: "input-field" %>
+      <%= f.text_field :company, placeholder: "Название вашей компании", required: true, class: "input-field" %>
+
+      <label class="flex items-center gap-2 text-sm text-neutral-80 mt-2 cursor-pointer">
+        <input type="checkbox" name="consent" required class="w-4 h-4 rounded border-neutral-30">
+        Даю согласие на обработку персональных данных
+      </label>
+
+      <div class="mt-4">
+        <%= f.submit "Отправить заявку", class: "btn btn-black w-full justify-center cursor-pointer" %>
+      </div>
+    <% end %>
+  </div>
+</section>
+

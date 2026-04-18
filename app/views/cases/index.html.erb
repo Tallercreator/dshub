@@ -1,0 +1,229 @@
+<%# ==================== HERO ==================== %>
+<% content_for :hero do %>
+  <section class="relative w-[1440px] mx-auto h-[600px] overflow-hidden bg-white">
+    <%# Background: repeating "КЕЙСЫ" text (Stapel Condensed) %>
+    <div class="absolute inset-0 pointer-events-none select-none flex items-center justify-center overflow-hidden">
+      <div class="text-center font-[450] tracking-[-12px] text-neutral-130 opacity-[0.08] leading-[0.72] text-[308px] whitespace-nowrap uppercase"
+           style="font-family: var(--font-condensed);">
+        Кейсы Кейсы Кейс<br>
+        Кейсы Кейсы Кейс
+      </div>
+    </div>
+
+    <%# Radial gradient fade to white %>
+    <div class="absolute inset-0 pointer-events-none"
+         style="background: radial-gradient(50% 50% at 50% 50%, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 98.2%);"></div>
+
+    <%# 3D Pill illustration (centered) %>
+    <div class="absolute left-1/2 top-[180px] -translate-x-1/2 w-[234px] h-[203px] pointer-events-none z-10">
+      <img src="/images/hero-pill.png" alt="" class="w-full h-full object-contain">
+    </div>
+  </section>
+<% end %>
+
+<%# ==================== CONTENT ==================== %>
+<section class="w-[1440px] mx-auto px-[32px] pb-[80px]">
+  <turbo-frame id="cases-browser" data-turbo-action="advance" class="block">
+  <div class="flex gap-[32px] justify-center">
+    <%# ========= LEFT: FILTERS SIDEBAR ========= %>
+    <aside class="w-[332px] shrink-0">
+      <div class="sticky top-[100px] max-h-[calc(100vh-120px)] overflow-y-auto pr-2 -mr-2">
+      <%# Industry chip filters (2 rows) %>
+      <div class="flex flex-wrap gap-x-[4px] gap-y-[4px] mb-[24px]">
+        <% @industries.each do |industry| %>
+          <%= link_to industry,
+              toggle_param_url(:industry, industry, current_params: params),
+              data: { turbo_frame: "cases-browser" },
+              class: "chip chip-outline #{'active' if @selected_industries.include?(industry)}" %>
+        <% end %>
+      </div>
+
+      <%# Тип кейса (case_type) %>
+      <div class="mb-[32px]">
+        <h3 class="font-display font-medium text-[16px] tracking-[-0.04em] text-neutral-160 mb-[16px]">Тип кейса</h3>
+        <div class="flex flex-col gap-3">
+          <% @case_types.each do |type| %>
+            <%= link_to toggle_param_url(:case_type, type, current_params: params),
+                data: { turbo_frame: "cases-browser" },
+                class: "flex items-center gap-2 text-[16px] font-display #{@selected_case_types.include?(type) ? 'text-neutral-160' : 'text-neutral-110'} hover:text-neutral-160 transition" do %>
+              <span class="w-[24px] h-[24px] rounded-[6px] border <%= @selected_case_types.include?(type) ? 'bg-neutral-160 border-neutral-160' : 'border-neutral-20' %> flex items-center justify-center shrink-0">
+                <% if @selected_case_types.include?(type) %>
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6L5 9L10 3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <% end %>
+              </span>
+              <%= type %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+
+      <%# Фокус кейса %>
+      <div class="mb-[32px]">
+        <h3 class="font-display font-medium text-[16px] tracking-[-0.04em] text-neutral-160 mb-[16px]">Фокус кейса</h3>
+        <div class="flex flex-col gap-3">
+          <% @focuses.each do |focus| %>
+            <%= link_to toggle_param_url(:focus, focus, current_params: params),
+                data: { turbo_frame: "cases-browser" },
+                class: "flex items-center gap-2 text-[16px] font-display #{@selected_focuses.include?(focus) ? 'text-neutral-160' : 'text-neutral-110'} hover:text-neutral-160 transition" do %>
+              <span class="w-[24px] h-[24px] rounded-[6px] border <%= @selected_focuses.include?(focus) ? 'bg-neutral-160 border-neutral-160' : 'border-neutral-20' %> flex items-center justify-center shrink-0">
+                <% if @selected_focuses.include?(focus) %>
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6L5 9L10 3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <% end %>
+              </span>
+              <%= focus %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+
+      <%# Дополнительно (collapsible) %>
+      <details class="mb-[32px]" open>
+        <summary class="flex items-center gap-2 cursor-pointer list-none mb-[16px]">
+          <span class="font-display text-[14px] text-neutral-100 tracking-[-0.04em]">Дополнительно</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="transition group-open:rotate-180">
+            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </summary>
+
+        <%# Тип компании %>
+        <div class="mb-[32px]">
+          <h3 class="font-display font-medium text-[16px] tracking-[-0.04em] text-neutral-160 mb-[16px]">Тип компании</h3>
+          <div class="flex flex-col gap-3">
+            <% @company_types.each do |type| %>
+              <%= link_to toggle_param_url(:company_type, type, current_params: params),
+                  data: { turbo_frame: "cases-browser" },
+                  class: "flex items-center gap-2 text-[16px] font-display #{@selected_company_types.include?(type) ? 'text-neutral-160' : 'text-neutral-110'} hover:text-neutral-160 transition" do %>
+                <span class="w-[24px] h-[24px] rounded-[6px] border <%= @selected_company_types.include?(type) ? 'bg-neutral-160 border-neutral-160' : 'border-neutral-20' %> flex items-center justify-center shrink-0">
+                  <% if @selected_company_types.include?(type) %>
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6L5 9L10 3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <% end %>
+                </span>
+                <%= type %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+
+        <%# Материалы в кейсе %>
+        <div>
+          <h3 class="font-display font-medium text-[16px] tracking-[-0.04em] text-neutral-160 mb-[16px]">Материалы в кейсе</h3>
+          <div class="flex flex-col gap-3">
+            <% @materials.each do |material| %>
+              <%= link_to toggle_param_url(:materials, material, current_params: params),
+                  data: { turbo_frame: "cases-browser" },
+                  class: "flex items-center gap-2 text-[16px] font-display #{@selected_materials.include?(material) ? 'text-neutral-160' : 'text-neutral-110'} hover:text-neutral-160 transition" do %>
+                <span class="w-[24px] h-[24px] rounded-[6px] border <%= @selected_materials.include?(material) ? 'bg-neutral-160 border-neutral-160' : 'border-neutral-20' %> flex items-center justify-center shrink-0">
+                  <% if @selected_materials.include?(material) %>
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6L5 9L10 3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <% end %>
+                </span>
+                <%= material %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </details>
+
+      <%# Reset all button %>
+      <% if @any_filter_active %>
+        <%= link_to "Сбросить все", cases_path,
+            data: { turbo_frame: "cases-browser" },
+            class: "btn btn-black" %>
+      <% end %>
+      </div>
+    </aside>
+
+    <%# ========= RIGHT: RESULTS ========= %>
+    <div class="w-[796px] shrink-0">
+      <%# Selected chips bar %>
+      <% if @any_filter_active %>
+        <div class="flex items-start gap-[16px] mb-[32px]">
+          <span class="text-[16px] font-display text-neutral-160 mt-[10px] shrink-0">Выбрано:</span>
+          <div class="flex flex-wrap gap-[8px] flex-1">
+            <% @selected_industries.each do |v| %>
+              <%= link_to toggle_param_url(:industry, v, current_params: params),
+                  data: { turbo_frame: "cases-browser" },
+                  class: "chip" do %>
+                <%= v %>
+                <span class="ml-1">✕</span>
+              <% end %>
+            <% end %>
+            <% @selected_case_types.each do |v| %>
+              <%= link_to toggle_param_url(:case_type, v, current_params: params),
+                  data: { turbo_frame: "cases-browser" },
+                  class: "chip" do %>
+                <%= v %>
+                <span class="ml-1">✕</span>
+              <% end %>
+            <% end %>
+            <% @selected_focuses.each do |v| %>
+              <%= link_to toggle_param_url(:focus, v, current_params: params),
+                  data: { turbo_frame: "cases-browser" },
+                  class: "chip" do %>
+                #<%= v %>
+                <span class="ml-1">✕</span>
+              <% end %>
+            <% end %>
+            <% @selected_company_types.each do |v| %>
+              <%= link_to toggle_param_url(:company_type, v, current_params: params),
+                  data: { turbo_frame: "cases-browser" },
+                  class: "chip" do %>
+                <%= v %>
+                <span class="ml-1">✕</span>
+              <% end %>
+            <% end %>
+            <% @selected_materials.each do |v| %>
+              <%= link_to toggle_param_url(:materials, v, current_params: params),
+                  data: { turbo_frame: "cases-browser" },
+                  class: "chip" do %>
+                <%= v %>
+                <span class="ml-1">✕</span>
+              <% end %>
+            <% end %>
+          </div>
+          <%= link_to "Сбросить все", cases_path,
+              data: { turbo_frame: "cases-browser" },
+              class: "btn btn-black shrink-0" %>
+        </div>
+      <% end %>
+
+      <%# Count (Russian pluralization) + sort %>
+      <% n = @cases.size; n10 = n % 10; n100 = n % 100
+         word = if n10 == 1 && n100 != 11 then "кейс"
+                elsif (2..4).cover?(n10) && !(12..14).cover?(n100) then "кейса"
+                else "кейсов" end %>
+      <div class="flex items-center justify-between mb-[32px]">
+        <p class="text-[16px] font-display text-neutral-160">
+          Найдено <%= n %> <%= word %>
+        </p>
+        <div class="flex items-center gap-[8px]">
+          <span class="text-[14px] font-display text-neutral-80">Сортировать:</span>
+          <% [
+            ["newest", "Сначала новые"],
+            ["oldest", "Сначала старые"]
+          ].each do |value, label| %>
+            <% qp = params.to_unsafe_h.except(:controller, :action).merge(sort: value) %>
+            <%= link_to label, cases_path(qp),
+                data: { turbo_frame: "cases-browser" },
+                class: "chip #{'active' if @sort == value}" %>
+          <% end %>
+        </div>
+      </div>
+
+      <%# Cards grid %>
+      <% if @cases.any? %>
+        <div class="grid grid-cols-2 gap-x-[16px] gap-y-[24px]">
+          <% @cases.each do |kase| %>
+            <%= render partial: "shared/case_card", locals: { kase: kase } %>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="text-center py-20">
+          <p class="text-[16px] text-neutral-80">Кейсы по выбранным фильтрам не найдены.</p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  </turbo-frame>
+</section>
+
