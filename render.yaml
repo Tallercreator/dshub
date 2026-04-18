@@ -1,0 +1,39 @@
+# Render Blueprint — DS Hub (Rails 8 + PostgreSQL + Active Storage)
+# Docs: https://render.com/docs/blueprint-spec
+
+databases:
+  - name: dshub-db
+    databaseName: dshub_production
+    plan: free  # бесплатно первые 90 дней, потом $7/мес. Upgrade: standard
+
+services:
+  - type: web
+    name: dshub
+    runtime: ruby
+    plan: starter  # free тоже работает, но засыпает после 15 мин простоя + нет диска для загрузок
+    region: frankfurt  # ближе к RU; варианты: oregon, ohio, frankfurt, singapore
+    branch: main
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    healthCheckPath: "/"
+    envVars:
+      - key: RAILS_MASTER_KEY
+        sync: false   # вводится вручную в UI Render (из config/master.key)
+      - key: DATABASE_URL
+        fromDatabase:
+          name: dshub-db
+          property: connectionString
+      - key: RAILS_ENV
+        value: production
+      - key: RAILS_LOG_TO_STDOUT
+        value: "true"
+      - key: RAILS_SERVE_STATIC_FILES
+        value: "true"
+      - key: WEB_CONCURRENCY
+        value: "2"
+      - key: RAILS_STORAGE_PATH
+        value: "/var/data/storage"
+    disk:
+      name: dshub-storage
+      mountPath: /var/data/storage
+      sizeGB: 1
