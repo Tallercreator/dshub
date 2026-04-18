@@ -1,5 +1,7 @@
 source "https://rubygems.org"
 
+ruby "3.3.5"
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.0.1"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
@@ -35,8 +37,8 @@ gem "thruster", require: false
 gem "devise"
 # Admin framework
 gem "activeadmin"
-# Sass for ActiveAdmin styling
-gem "sassc-rails"
+# Sass compiler for ActiveAdmin styling (Dart Sass — supports modern CSS)
+gem "dartsass-rails"
 # Russian translations for Rails (dates, numbers, validation messages)
 gem "rails-i18n"
 # Tailwind CSS for Rails
