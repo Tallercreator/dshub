@@ -1,6 +1,6 @@
 require "json"
 
-content = JSON.parse(File.read(Rails.root.join("tmp/cases_content.json")))
+content = JSON.parse(File.read(Rails.root.join("db/seeds/data/cases_content.json")))
 
 # Match company_key from JSON → Case record (company + ds_name)
 mapping = {

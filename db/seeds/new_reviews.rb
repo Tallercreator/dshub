@@ -1,6 +1,6 @@
 require "json"
 
-data = JSON.parse(File.read(Rails.root.join("tmp/new_reviews.json")))
+data = JSON.parse(File.read(Rails.root.join("db/seeds/data/new_reviews.json")))
 
 data.each do |_key, attrs|
   company = attrs["company"]

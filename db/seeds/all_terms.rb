@@ -1,6 +1,6 @@
 require "json"
 
-terms_data = JSON.parse(File.read(Rails.root.join("tmp/terms.json")))
+terms_data = JSON.parse(File.read(Rails.root.join("db/seeds/data/terms.json")))
 
 terms_data.each do |data|
   term = Term.find_or_initialize_by(term: data["term"])

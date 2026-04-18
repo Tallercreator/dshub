@@ -1,0 +1,240 @@
+[
+  {
+    "resource_type": "Статья",
+    "title": "Дизайн-токены: полный гайд по архитектуре и неймингу",
+    "description": "Трёхслойная модель Primitive → Semantic → Component с примерами и задачками. Самый подробный русскоязычный разбор на Habr (апрель 2025).",
+    "url": "habr.com/ru/articles/1012980/",
+    "tags": "токены, архитектура"
+  },
+  {
+    "resource_type": "Статья",
+    "title": "Ультимативный гайд по дизайн-токенам",
+    "description": "Практический взгляд дизайнера: зачем семантика, как токены синхронизируют дизайн и код, типичные ошибки при токенизации цветов.",
+    "url": "habr.com/ru/companies/usetech/articles/673196/",
+    "tags": "токены"
+  },
+  {
+    "resource_type": "Статья",
+    "title": "Нейминг без боли: архитектура токенов через библиотечную структуру",
+    "description": "4-уровневая Figma-библиотека: Primitives → Style Guide → Base Components → Product. Как организовать токены и Figma-библиотеки, чтобы масштабирование не превращалось в хаос.",
+    "url": "habr.com/ru/companies/pgk/articles/912192/",
+    "tags": "токены, нейминг"
+  },
+  {
+    "resource_type": "Статья",
+    "title": "Архитектура дизайн-токенов: подход, который спасает от хаоса",
+    "description": "Токены — общий язык дизайна и разработки. Примеры коллекций Primitives и Semantic с CSS-переменными. Реальные проблемы при отсутствии архитектуры.",
+    "url": "habr.com/ru/articles/974094/",
+    "tags": "токены, архитектура"
+  },
+  {
+    "resource_type": "Статья",
+    "title": "Почему стили в Figma — прошлый век",
+    "description": "Чем Variables лучше стилей: связывание значений, автообновление при изменении токена, семантические слои и токенизация палитры.",
+    "url": "habr.com/ru/companies/friflex/articles/892822/",
+    "tags": "Figma, Variables"
+  },
+  {
+    "resource_type": "Статья",
+    "title": "Figma Variables: как ускорить дизайн адаптивов без плагинов",
+    "description": "Desktop/Mobile режимы, связка Variables с текстовыми стилями, адаптивная сетка — всё нативными средствами Figma без плагинов.",
+    "url": "vc.ru/design/1715123",
+    "tags": "Figma, Variables"
+  },
+  {
+    "resource_type": "Статья",
+    "title": "Подробный гайд: тёмная тема с помощью Variables Figma",
+    "description": "Пошаговый разбор с типичными ошибками: primary/secondary переменные, семантика и режимы светлой/тёмной темы.",
+    "url": "habr.com/ru/articles/793996/",
+    "tags": "Figma, темнаятема"
+  },
+  {
+    "resource_type": "Статья",
+    "title": "Гайд: проектируем систему цветов — Styles, Tokens, Variables",
+    "description": "Как перейти от стилей к Variables: плагин Styles to Variables Converter, организация двух тем как двух колонок в одной коллекции.",
+    "url": "habr.com/ru/articles/781082/",
+    "tags": "Figma, цвета"
+  },
+  {
+    "resource_type": "Статья",
+    "title": "Рабочий процесс команды дизайн-системы",
+    "description": "Чем реально занимается команда DS: не только «делает компоненты», но и ревью, приоритизация, коммуникация с продуктовыми командами. Опыт Домклик.",
+    "url": "habr.com/ru/companies/domclick/articles/820977/",
+    "tags": "процессы, команда"
+  },
+  {
+    "resource_type": "Статья",
+    "title": "Окей, Гугл. Как создать дизайн-систему? Советы от практиков",
+    "description": "Сборник советов практиков: команда, ресурсы, токены, компоненты. Кто такой «библиотекарь» и почему DS чаще появляется снизу.",
+    "url": "habr.com/ru/articles/720554/",
+    "tags": "процессы"
+  },
+  {
+    "resource_type": "Кейс",
+    "title": "Метём метлой: рефакторим дизайн-систему в X5 Tech",
+    "description": "Рефакторинг DS для масштабирования на Пятёрочку, Перекрёсток, офис X5. Как токены решают проблему нескольких брендбуков в одном продукте.",
+    "url": "habr.com/ru/companies/X5Tech/articles/841068/",
+    "tags": "процессы, X5Tech"
+  },
+  {
+    "resource_type": "Статья",
+    "title": "Ещё одна статья про дизайн-системы в продуктовом дизайне",
+    "description": "Честный взгляд: DS = UI-кит + код. Кривая Гартнера, проблемы масштабирования, что теряется при жёстком соблюдении системы.",
+    "url": "habr.com/ru/company/agima/blog/654981/",
+    "tags": "процессы, честно"
+  },
+  {
+    "resource_type": "Кейс",
+    "title": "Как Paradigm и VKUI стали одной дизайн-системой",
+    "description": "История объединения DS ВКонтакте и Mail.ru: единые токены, разные Figma-библиотеки, синхронизация двух продуктовых экосистем.",
+    "url": "vc.ru/design/963959",
+    "tags": "VKUI, Paradigm, VK"
+  },
+  {
+    "resource_type": "Кейс",
+    "title": "Дизайн-система Gravity UI: как легко построить свой интерфейс",
+    "description": "Яндекс Клауд открыл свою DS. Как Gravity UI развивается по запросам разработчиков и почему дизайнеры неразрывно связаны с продуктами.",
+    "url": "habr.com/ru/companies/yandex/articles/773870/",
+    "tags": "GravityUI, Яндекс"
+  },
+  {
+    "resource_type": "Кейс",
+    "title": "Как мы делали Yandex Cloud на Gravity UI доступнее",
+    "description": "Практика accessibility в российской открытой DS: скринридеры, фокус-менеджмент, 14 открытых и 24 закрытых issue с тегом a11y.",
+    "url": "habr.com/ru/companies/yandex_cloud_and_infra/articles/853382/",
+    "tags": "GravityUI, a11y"
+  },
+  {
+    "resource_type": "Статья",
+    "title": "Дизайн системы: жизненный цикл и роль в оргструктуре",
+    "description": "От «песочницы» до полноценной DS с командой. Токены, атомарный дизайн, governance — как DS вписывается в структуру продуктовой компании.",
+    "url": "habr.com/ru/companies/marfatech/articles/862778/",
+    "tags": "DS, жизненный"
+  },
+  {
+    "resource_type": "Статья",
+    "title": "Как я генерировал документацию для дизайн-токенов в Storybook",
+    "description": "Цветовая палитра, шрифты и иконки в Storybook через CSS-переменные без копипасты. Реальная проблема с дублирующимися компонентами и её решение.",
+    "url": "habr.com/ru/articles/779524/",
+    "tags": "Storybook, токены"
+  },
+  {
+    "resource_type": "Статья",
+    "title": "Скажи что-нибудь на разрабском, Figma — разбор Ozon Tech",
+    "description": "Обновление Variables в Figma глазами разработчиков: Dev Mode, playground компонентов, что изменилось при передаче в разработку.",
+    "url": "habr.com/ru/companies/ozontech/articles/746124/",
+    "tags": "Figma, разработчики"
+  },
+  {
+    "resource_type": "Статья",
+    "title": "5 полезных Figma-плагинов для работы с компонентами и токенами",
+    "description": "Концентрат реально используемых плагинов: экспорт Variables в JSON, переключение модов без Enterprise тарифа, работа с библиотеками.",
+    "url": "habr.com/ru/articles/857346/",
+    "tags": "Figma, плагины"
+  },
+  {
+    "resource_type": "Видео",
+    "title": "Философия iOS vs Android | Разбор различий",
+    "description": "Сравнение дизайн-паттернов двух платформ: навигация, CTA, типографика, нативные компоненты. Обязательно для работы с кросс-платформенными DS.",
+    "url": "YouTube — поиск: «iOS vs Android дизайн разбор»",
+    "tags": "iOS, Android, платформы"
+  },
+  {
+    "resource_type": "Видео",
+    "title": "Дизайн-система МегаФона: процессы и инструменты",
+    "description": "Разбор того, как МегаФон выстраивал процессы вокруг DS: инструменты, синхронизация команд, работа с изменениями.",
+    "url": "github.com/unchase/awesome-russian-design-systems  раздел МегаФон",
+    "tags": "DS, МегаФон"
+  },
+  {
+    "resource_type": "Видео",
+    "title": "Дизайн-система как инструмент экосистемы — Дарья Егорова, МТС",
+    "description": "Как DS МТС работает в масштабе продуктовой экосистемы. Метод построения и поддержки для множества продуктов.",
+    "url": "github.com/unchase/awesome-russian-design-systems  раздел МТС",
+    "tags": "DS, МТС"
+  },
+  {
+    "resource_type": "Видео",
+    "title": "Дизайн-система тридцати продуктов для бизнеса — Контур",
+    "description": "Владимир Дзех: как Контур поддерживает единую DS для 30+ продуктов, принципы governance и работа с командами.",
+    "url": "github.com/unchase/awesome-russian-design-systems  раздел Контур",
+    "tags": "DS, Контур"
+  },
+  {
+    "resource_type": "Видео",
+    "title": "Быстрый запуск фичей с Backend-Driven UI — Ozon",
+    "description": "Разбор BDUI-архитектуры Ozon: как Server-Driven UI позволяет менять интерфейс мобильного приложения без релиза.",
+    "url": "github.com/unchase/awesome-russian-design-systems  раздел Ozon",
+    "tags": "BDUI, Ozon"
+  },
+  {
+    "resource_type": "Сайт",
+    "title": "Gravity UI — дизайн-система Яндекс Клауда",
+    "description": "Открытая DS: документация, Themer (конструктор тем), компоненты, GitHub с активным сообществом.",
+    "url": "gravity-ui.com",
+    "tags": "DS, Яндекс, open-source"
+  },
+  {
+    "resource_type": "Сайт",
+    "title": "VKUI — официальная документация",
+    "description": "Сайт VKUI v8: компоненты, токены, MCP-сервер, SSR, адаптивность. Первая российская DS с интеграцией AI-агентов.",
+    "url": "vkui.io",
+    "tags": "DS, VK, VKUI"
+  },
+  {
+    "resource_type": "Сайт",
+    "title": "avito.design — открытая база знаний AKITA",
+    "description": "Публичная база знаний DS Авито: гайдлайны, компоненты, паттерны. Открылась внешним пользователям в 2025 году.",
+    "url": "avito.design",
+    "tags": "DS, Авито, AKITA"
+  },
+  {
+    "resource_type": "Сайт",
+    "title": "Дизайн-система Ростелекома — gen2",
+    "description": "DS второго поколения (Атомаро): документация, Vue/React Storybook, история изменений. Пример корпоративной DS с открытой документацией.",
+    "url": "design.rt.ru",
+    "tags": "DS, Ростелеком, Атомаро"
+  },
+  {
+    "resource_type": "Сайт",
+    "title": "Hexa UI — дизайн-система Касперского",
+    "description": "Открытая (Apache-2.0) DS: Storybook с публичным Definition of Done, архитектурой компонентов, тестовыми атрибутами в API.",
+    "url": "kasperskylab.github.io/uif/hexa-ui/",
+    "tags": "DS, Kaspersky, open-source"
+  },
+  {
+    "resource_type": "Сайт",
+    "title": "awesome-russian-design-systems (GitHub)",
+    "description": "Курируемый список всех российских DS: библиотеки, статьи, доклады, видео по каждой системе. Незаменимый справочник.",
+    "url": "github.com/unchase/awesome-russian-design-systems",
+    "tags": "коллекция, российские"
+  },
+  {
+    "resource_type": "Сайт",
+    "title": "Material Design 3 — Google",
+    "description": "Мировой стандарт DS: токены, компоненты, адаптивность. Образцовая документация — объясняет «зачем» для каждого решения.",
+    "url": "m3.material.io",
+    "tags": "DS, Google, Material"
+  },
+  {
+    "resource_type": "Сайт",
+    "title": "Human Interface Guidelines — Apple",
+    "description": "Гайдлайны Apple для iOS, macOS, watchOS. Образец того, как объяснять принципы платформенного дизайна, а не просто показывать компоненты.",
+    "url": "developer.apple.com/design/human-interface-guidelines",
+    "tags": "DS, Apple, HIG"
+  },
+  {
+    "resource_type": "Сайт",
+    "title": "Design Systems Repo",
+    "description": "Международный агрегатор: статьи, книги, доклады, инструменты по теме DS. Лучшая отправная точка для глубокого погружения.",
+    "url": "designsystemsrepo.com",
+    "tags": "коллекция, международные"
+  },
+  {
+    "resource_type": "Сайт",
+    "title": "Designsystemhunt — каталог DS",
+    "description": "Каталог дизайн-систем с фильтрацией по технологии, открытости и отрасли. Быстрый способ найти референсы.",
+    "url": "designsystemhunt.com",
+    "tags": "каталог"
+  }
+]
