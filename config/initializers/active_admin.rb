@@ -233,6 +233,10 @@ ActiveAdmin.setup do |config|
   # To load a javascript file:
   #   config.register_javascript 'my_javascript.js'
 
+  # Trix WYSIWYG editor for rich-text fields in admin forms.
+  config.register_stylesheet 'trix.css'
+  config.register_javascript 'trix.js'
+
   # == CSV options
   #
   # Set the CSV builder separator

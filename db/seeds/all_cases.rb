@@ -148,6 +148,14 @@ cases_data = [
 cases_data.each do |data|
   kase = Case.find_or_initialize_by(company: data[:company], ds_name: data[:ds_name])
   kase.assign_attributes(data)
+
+  # Long-form fields are stored as HTML for the Trix editor.
+  Case::RICH_TEXT_FIELDS.each do |field|
+    raw = kase.read_attribute(field).to_s
+    next if raw.blank? || raw.lstrip.start_with?("<")
+    kase.write_attribute(field, CaseContentConverter.call(raw))
+  end
+
   kase.save!
   puts "#{kase.new_record? ? 'Created' : 'Saved'}: ##{kase.id} #{kase.company} — #{kase.ds_name} (#{kase.case_format})"
 end

@@ -5,6 +5,13 @@ class Case < ApplicationRecord
   MATERIALS = ["Фигма", "Сайт", "ГитХаб"].freeze
   CASE_FORMATS = ["Экспертное интервью", "Обзор"].freeze
 
+  # Long-form text fields edited via WYSIWYG (Trix). Stored as HTML.
+  RICH_TEXT_FIELDS = %i[
+    intro tldr context positioning composition processes documentation
+    design_code_sync quality scaling unique_practices conclusions quotes
+    focus_description artifacts
+  ].freeze
+
   ALLOWED_COVER_TYPES = %w[image/png image/jpeg image/webp image/svg+xml].freeze
   MAX_COVER_SIZE = 10.megabytes
 

@@ -54,11 +54,15 @@
 
         <%# Sidebar fields %>
         <div class="flex flex-col gap-[20px]">
-          <% focus_text = @case.focus_description.presence || @case.tag_list.join(", ") %>
-          <% if focus_text.present? %>
+          <% if @case.focus_description.present? %>
             <div class="case-sidebar-field">
               <div class="case-sidebar-label">Фокус кейса:</div>
-              <div class="case-sidebar-value"><%= simple_format(focus_text) %></div>
+              <div class="case-sidebar-value"><%= safe_admin_html(@case.focus_description) %></div>
+            </div>
+          <% elsif @case.tag_list.any? %>
+            <div class="case-sidebar-field">
+              <div class="case-sidebar-label">Фокус кейса:</div>
+              <div class="case-sidebar-value"><%= @case.tag_list.join(", ") %></div>
             </div>
           <% end %>
 
@@ -72,14 +76,14 @@
           <% if @case.artifacts.present? %>
             <div class="case-sidebar-field">
               <div class="case-sidebar-label">Артефакты в кейсе:</div>
-              <div class="case-sidebar-value"><%= simple_format(@case.artifacts) %></div>
+              <div class="case-sidebar-value"><%= safe_admin_html(@case.artifacts) %></div>
             </div>
           <% end %>
         </div>
 
         <%# Intro paragraph %>
         <% if @case.intro.present? %>
-          <div class="case-sidebar-intro"><%= simple_format(@case.intro) %></div>
+          <div class="case-sidebar-intro"><%= safe_admin_html(@case.intro) %></div>
         <% end %>
       </div>
     </aside>
@@ -96,28 +100,14 @@
         <% value = @case.send(field) %>
         <% next if value.blank? %>
 
-        <% body, quote = field == :quotes ? [value, nil] : split_section_quote(value) %>
-
-        <section id="<%= field %>" class="flex flex-col gap-[24px]">
+        <section id="<%= field %>" class="flex flex-col gap-[24px]" style="--case-quote-accent: <%= accent %>;">
           <h2 class="text-[24px] font-display font-[450] leading-[1.15] tracking-[-0.04em] text-neutral-160 m-0">
             <%= title %>
           </h2>
 
           <div class="text-[16px] font-display leading-[1.5] text-neutral-130 case-body">
-            <%= render_case_section_body(body.to_s, field: field) %>
+            <%= safe_admin_html(value) %>
           </div>
-
-          <% if quote.present? %>
-            <blockquote class="case-quote" style="--case-quote-accent: <%= accent %>;">
-              <span class="case-quote-mark case-quote-mark--open" aria-hidden="true">
-                <%= render "shared/quote_mark" %>
-              </span>
-              <span class="case-quote-text"><%= quote %></span>
-              <span class="case-quote-mark case-quote-mark--close" aria-hidden="true">
-                <%= render "shared/quote_mark" %>
-              </span>
-            </blockquote>
-          <% end %>
         </section>
       <% end %>
     </main>

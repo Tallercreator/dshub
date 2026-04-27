@@ -211,6 +211,13 @@ kase.assign_attributes(
   TEXT
 )
 
+# Long-form fields are stored as HTML for the Trix editor.
+Case::RICH_TEXT_FIELDS.each do |field|
+  raw = kase.read_attribute(field).to_s
+  next if raw.blank? || raw.lstrip.start_with?("<")
+  kase.write_attribute(field, CaseContentConverter.call(raw))
+end
+
 kase.save!
 
 cover_path = Rails.root.join("../Файлы по кейсам").expand_path

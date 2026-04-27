@@ -26,6 +26,18 @@ content.each do |key, fields|
     next
   end
 
+  # Long-form fields are stored as HTML for the Trix editor.
+  # Convert legacy plain-text mini-markup to HTML on import.
+  fields = fields.each_with_object({}) do |(k, v), out|
+    sym = k.to_sym
+    out[sym] =
+      if Case::RICH_TEXT_FIELDS.include?(sym) && v.is_a?(String) && v.present? && !v.lstrip.start_with?("<")
+        CaseContentConverter.call(v)
+      else
+        v
+      end
+  end
+
   kase.update!(fields)
   filled = fields.count { |_, v| v.present? }
   puts "Updated ##{kase.id} #{kase.company} — #{kase.ds_name} (#{filled} sections)"

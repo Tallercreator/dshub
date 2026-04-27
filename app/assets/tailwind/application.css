@@ -768,7 +768,7 @@
     }
   }
 
-  /* ===== Case page: narrative body ===== */
+  /* ===== Case page: narrative body (Trix HTML output) ===== */
   .case-body > *:not(:last-child) { margin-bottom: 16px; }
   .case-body p {
     font-family: var(--font-display);
@@ -779,7 +779,9 @@
     color: var(--color-neutral-130);
     margin: 0;
   }
-  .case-subheading {
+  .case-body h1,
+  .case-body h2,
+  .case-body h3 {
     font-family: var(--font-display);
     font-weight: 500;
     font-size: 20px;
@@ -788,10 +790,20 @@
     color: var(--color-neutral-160);
     margin: 28px 0 8px;
   }
-  .case-body > .case-subheading:first-child {
-    margin-top: 0;
+  .case-body > h1:first-child,
+  .case-body > h2:first-child,
+  .case-body > h3:first-child { margin-top: 0; }
+
+  .case-body strong, .case-body b { font-weight: 600; color: var(--color-neutral-160); }
+  .case-body em, .case-body i { font-style: italic; }
+  .case-body a {
+    color: var(--color-neutral-160);
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
-  .case-inline-quote {
+  .case-body a:hover { color: var(--case-quote-accent, #ff6900); }
+
+  .case-body blockquote {
     font-family: var(--font-display);
     font-style: italic;
     font-weight: 450;
@@ -803,15 +815,17 @@
     padding: 4px 0 4px 16px;
     margin: 0;
   }
-  .case-bullets {
-    list-style: none;
+
+  .case-body ul,
+  .case-body ol {
     padding: 0;
     margin: 0;
     display: flex;
     flex-direction: column;
     gap: 8px;
   }
-  .case-bullets li {
+  .case-body ul { list-style: none; }
+  .case-body ul > li {
     font-family: var(--font-display);
     font-weight: 450;
     font-size: 16px;
@@ -821,7 +835,7 @@
     padding-left: 20px;
     position: relative;
   }
-  .case-bullets li::before {
+  .case-body ul > li::before {
     content: "•";
     position: absolute;
     left: 4px;
@@ -829,22 +843,34 @@
     color: var(--color-neutral-80);
   }
 
-  /* ===== Case page: numbered list card ===== */
-  .case-numbered-card {
+  .case-body ol {
     list-style: none;
+    counter-reset: case-item;
     background: var(--color-neutral-10);
     border-radius: 20px;
     padding: 24px 28px;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
     gap: 20px;
-    counter-reset: case-item;
   }
-  .case-numbered-item {
+  .case-body ol > li {
+    counter-increment: case-item;
     font-family: var(--font-display);
+    font-weight: 450;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    color: var(--color-neutral-100);
+    padding-left: 32px;
+    position: relative;
   }
-  .case-numbered-title {
+  .case-body ol > li::before {
+    content: counter(case-item) ".";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-weight: 500;
+    color: var(--color-neutral-160);
+  }
+  .case-body ol > li > strong:first-child {
     display: block;
     color: var(--color-neutral-160);
     font-weight: 500;
@@ -853,12 +879,20 @@
     letter-spacing: -0.02em;
     margin-bottom: 6px;
   }
-  .case-numbered-body {
-    color: var(--color-neutral-100);
-    font-weight: 450;
-    font-size: 16px;
-    line-height: 1.5;
-    letter-spacing: -0.01em;
-    margin: 0;
-  }
+}
+
+/* ===== Active Admin: Trix editor ===== */
+.formtastic .input trix-editor {
+  display: block;
+  min-height: 180px;
+  padding: 10px 12px;
+  border: 1px solid #c2c2c2;
+  border-radius: 4px;
+  background: #fff;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.formtastic .input trix-toolbar {
+  margin-bottom: 6px;
 }

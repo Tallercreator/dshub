@@ -89,10 +89,10 @@ ActiveAdmin.register Case do
     end
 
     f.inputs "Сайдбар" do
-      f.input :focus_description, label: "Фокус кейса (текст)", input_html: { rows: 3 }, hint: "Одна-две строки свободным текстом для сайдбара. Например: «организация дизайн-системы в мобильном продукте, ускорение delivery и снижение ошибок»"
+      f.input :focus_description, as: :trix, label: "Фокус кейса (текст)", hint: "Одна-две строки свободным текстом для сайдбара."
       f.input :speaker_role, label: "Роль эксперта", input_html: { rows: 2 }, hint: "Например: «Никита — дизайнер дизайн-системы (в команде есть лиды по iOS и Android)»"
-      f.input :artifacts, label: "Артефакты в кейсе", input_html: { rows: 3 }, hint: "Через запятую. Например: «Figma-файлы (showcase + master), документация в Figma, dev sandbox»"
-      f.input :intro, label: "Вводный абзац (над «Контекстом»)", input_html: { rows: 4 }, hint: "Короткое вступление о дизайн-системе — появляется в сайдбаре под лейблами."
+      f.input :artifacts, as: :trix, label: "Артефакты в кейсе", hint: "Например: «Figma-файлы (showcase + master), документация в Figma, dev sandbox»"
+      f.input :intro, as: :trix, label: "Вводный абзац (над «Контекстом»)", hint: "Короткое вступление о дизайн-системе — появляется в сайдбаре под лейблами."
     end
 
     f.inputs "Рекомендованные ресурсы" do
@@ -104,18 +104,18 @@ ActiveAdmin.register Case do
     end
 
     f.inputs "Содержание" do
-      f.input :tldr, label: "Главное", input_html: { rows: 6 }
-      f.input :context, label: "Контекст", input_html: { rows: 6 }
-      f.input :positioning, label: "Позиционирование", input_html: { rows: 6 }
-      f.input :composition, label: "Состав", input_html: { rows: 6 }
-      f.input :processes, label: "Процессы", input_html: { rows: 6 }
-      f.input :documentation, label: "Документация", input_html: { rows: 6 }
-      f.input :design_code_sync, label: "Синхронизация дизайна и кода", input_html: { rows: 6 }
-      f.input :quality, label: "Качество", input_html: { rows: 6 }
-      f.input :scaling, label: "Масштабирование", input_html: { rows: 6 }
-      f.input :unique_practices, label: "Уникальные практики", input_html: { rows: 6 }
-      f.input :conclusions, label: "Выводы", input_html: { rows: 6 }
-      f.input :quotes, label: "Цитаты", input_html: { rows: 6 }
+      f.input :tldr, as: :trix, label: "Главное"
+      f.input :context, as: :trix, label: "Контекст"
+      f.input :positioning, as: :trix, label: "Позиционирование"
+      f.input :composition, as: :trix, label: "Состав"
+      f.input :processes, as: :trix, label: "Процессы"
+      f.input :documentation, as: :trix, label: "Документация"
+      f.input :design_code_sync, as: :trix, label: "Синхронизация дизайна и кода"
+      f.input :quality, as: :trix, label: "Качество"
+      f.input :scaling, as: :trix, label: "Масштабирование"
+      f.input :unique_practices, as: :trix, label: "Уникальные практики"
+      f.input :conclusions, as: :trix, label: "Выводы"
+      f.input :quotes, as: :trix, label: "Цитаты"
     end
 
     f.actions
@@ -144,22 +144,22 @@ ActiveAdmin.register Case do
       row("Теги") { |k| k.tags }
       row("Акцентный цвет") { |k| k.accent_color }
       row("Опубликован") { |k| k.published }
-      row("Фокус кейса (текст)") { |k| simple_format(k.focus_description.to_s) }
+      row("Фокус кейса (текст)") { |k| safe_admin_html(k.focus_description) }
       row("Роль эксперта") { |k| simple_format(k.speaker_role.to_s) }
-      row("Артефакты в кейсе") { |k| simple_format(k.artifacts.to_s) }
-      row("Вводный абзац") { |k| simple_format(k.intro.to_s) }
-      row("Главное") { |k| simple_format(k.tldr.to_s) }
-      row("Контекст") { |k| simple_format(k.context.to_s) }
-      row("Позиционирование") { |k| simple_format(k.positioning.to_s) }
-      row("Состав") { |k| simple_format(k.composition.to_s) }
-      row("Процессы") { |k| simple_format(k.processes.to_s) }
-      row("Документация") { |k| simple_format(k.documentation.to_s) }
-      row("Синхронизация дизайна и кода") { |k| simple_format(k.design_code_sync.to_s) }
-      row("Качество") { |k| simple_format(k.quality.to_s) }
-      row("Масштабирование") { |k| simple_format(k.scaling.to_s) }
-      row("Уникальные практики") { |k| simple_format(k.unique_practices.to_s) }
-      row("Выводы") { |k| simple_format(k.conclusions.to_s) }
-      row("Цитаты") { |k| simple_format(k.quotes.to_s) }
+      row("Артефакты в кейсе") { |k| safe_admin_html(k.artifacts) }
+      row("Вводный абзац") { |k| safe_admin_html(k.intro) }
+      row("Главное") { |k| safe_admin_html(k.tldr) }
+      row("Контекст") { |k| safe_admin_html(k.context) }
+      row("Позиционирование") { |k| safe_admin_html(k.positioning) }
+      row("Состав") { |k| safe_admin_html(k.composition) }
+      row("Процессы") { |k| safe_admin_html(k.processes) }
+      row("Документация") { |k| safe_admin_html(k.documentation) }
+      row("Синхронизация дизайна и кода") { |k| safe_admin_html(k.design_code_sync) }
+      row("Качество") { |k| safe_admin_html(k.quality) }
+      row("Масштабирование") { |k| safe_admin_html(k.scaling) }
+      row("Уникальные практики") { |k| safe_admin_html(k.unique_practices) }
+      row("Выводы") { |k| safe_admin_html(k.conclusions) }
+      row("Цитаты") { |k| safe_admin_html(k.quotes) }
       row("Создан") { |k| k.created_at }
       row("Рекомендованные ресурсы") do |k|
         if k.recommended_resources.any?
